@@ -35,10 +35,14 @@ export const Route = createRootRoute({
       { name: "description", content: "50+ 免費線上工具，文字處理、編碼解碼、格式化、產生器、轉換器、計算器等。" },
       { name: "author", content: "FreeWebTools" },
       { property: "og:title", content: "FreeWebTools — 免費線上工具集" },
-      { property: "og:description", content: "50+ 免費線上工具，所有工具皆在瀏覽器端運行。" },
+      { property: "og:description", content: "50+ 免費線上工具，文字處理、編碼解碼、格式化、產生器、轉換器、計算器等。" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "FreeWebTools — 免費線上工具集" },
+      { name: "twitter:description", content: "50+ 免費線上工具，文字處理、編碼解碼、格式化、產生器、轉換器、計算器等。" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5df02089-17d2-4523-8546-ab8c03f4f839/id-preview-4ebed921--3123b998-46a1-4321-8556-946379f45180.lovable.app-1775999296875.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5df02089-17d2-4523-8546-ab8c03f4f839/id-preview-4ebed921--3123b998-46a1-4321-8556-946379f45180.lovable.app-1775999296875.png" },
     ],
     links: [
       {

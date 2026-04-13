@@ -43,7 +43,7 @@ function JsonViewer() {
   let parsed: any = null;
   try { parsed = JSON.parse(input); } catch {}
 
-  const renderValue = (val: any, depth = 0): JSX.Element => {
+  const renderValue = (val: any, depth = 0): React.ReactNode => {
     if (val === null) return <span className="text-muted-foreground">null</span>;
     if (typeof val === "boolean") return <span className="text-orange-500">{val.toString()}</span>;
     if (typeof val === "number") return <span className="text-blue-500">{val}</span>;

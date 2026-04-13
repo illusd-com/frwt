@@ -20,7 +20,7 @@ import {
   Briefcase, Receipt, Building2, BarChart, Percent, FileSignature,
   Plus, Minus, Divide, X, Pi, Triangle,
   Timer, AlarmClock, Hourglass, CalendarDays, Sunrise, Moon,
-  Pencil, BookMarked, List, Quote, Heading, Spellcheck,
+  Pencil, BookMarked, List, Quote, Heading, SpellCheck,
   Gamepad2, Dices, Puzzle, Target, Wand2, Joystick,
   Cpu, HardDriveDownload, Network, Webhook, Bug, Settings,
   Languages, Flag, Globe2 as GlobeAlt, MessageCircle, Type as TypeIcon,

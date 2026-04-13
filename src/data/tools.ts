@@ -364,7 +364,7 @@ export const tools: Tool[] = [
   { id: "working-days", name: "工作日計算", description: "計算兩個日期間的工作日數", category: "time", icon: Briefcase },
 
   // ─── 寫作工具 (Writing) ───
-  { id: "grammar-check", name: "文法檢查", description: "檢查英文文法錯誤", category: "writing", icon: Spellcheck },
+  { id: "grammar-check", name: "文法檢查", description: "檢查英文文法錯誤", category: "writing", icon: SpellCheck },
   { id: "readability-score", name: "可讀性分析", description: "分析文章的可讀性指數", category: "writing", icon: Eye },
   { id: "outline-gen", name: "大綱產生器", description: "為文章產生結構化大綱", category: "writing", icon: List },
   { id: "title-gen", name: "標題產生器", description: "產生吸引人的文章標題", category: "writing", icon: Heading },

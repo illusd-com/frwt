@@ -438,3 +438,12 @@ export function searchTools(query: string): Tool[] {
     t.id.includes(q)
   );
 }
+
+export function getRelatedTools(toolId: string, limit = 6): Tool[] {
+  const tool = getToolById(toolId);
+  if (!tool) return [];
+  const sameCat = tools.filter(t => t.category === tool.category && t.id !== toolId);
+  if (sameCat.length >= limit) return sameCat.slice(0, limit);
+  const others = tools.filter(t => t.category !== tool.category && t.id !== toolId);
+  return [...sameCat, ...others.slice(0, limit - sameCat.length)];
+}

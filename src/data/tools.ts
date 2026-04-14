@@ -224,7 +224,10 @@ export const tools: Tool[] = [
   { id: "pixel-art", name: "像素畫產生器", description: "產生像素風格的圖片", category: "image", icon: Hexagon },
 
   // ─── 網址工具 (URL) ───
-  { id: "url-shortener", name: "縮短網址", description: "將長網址轉為短網址", category: "url", icon: LinkIcon },
+  { id: "url-shortener", name: "縮短網址", description: "將長網址轉為短網址，產生 /s/ 分享連結", category: "url", icon: LinkIcon },
+  { id: "text-share", name: "文字分享", description: "分享文字內容，產生短連結", category: "url", icon: FileText },
+  { id: "image-share", name: "圖片分享", description: "上傳圖片並產生分享連結", category: "url", icon: Image },
+  { id: "file-share", name: "檔案分享", description: "上傳檔案並產生下載連結", category: "url", icon: FileText },
   { id: "url-parser", name: "URL 解析", description: "解析 URL 的各個組成部分", category: "url", icon: Unlink },
   { id: "url-builder", name: "URL 建構器", description: "視覺化建構帶參數的 URL", category: "url", icon: Link },
   { id: "qr-code-reader", name: "QR Code 讀取", description: "從圖片讀取 QR Code 內容", category: "url", icon: QrCode },

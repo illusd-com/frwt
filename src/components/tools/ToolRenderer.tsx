@@ -151,6 +151,9 @@ register({
   "utm-builder": UrlTools.UtmBuilder,
   "url-validator": UrlTools.UrlValidator,
   "url-compare": UrlTools.UrlCompare,
+  "text-share": UrlTools.TextShare,
+  "image-share": UrlTools.ImageShare,
+  "file-share": UrlTools.FileShare,
 });
 
 // Video/Audio tools

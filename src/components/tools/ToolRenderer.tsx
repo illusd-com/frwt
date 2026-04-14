@@ -1,10 +1,16 @@
 import { TextTools } from "./TextTools";
+import { TextToolsExtra } from "./TextToolsExtra";
 import { EncodeTools } from "./EncodeTools";
+import { EncodeToolsExtra } from "./EncodeToolsExtra";
 import { FormatTools } from "./FormatTools";
 import { GeneratorTools } from "./GeneratorTools";
+import { GeneratorToolsExtra } from "./GeneratorToolsExtra";
 import { ConverterTools } from "./ConverterTools";
+import { ConverterToolsExtra } from "./ConverterToolsExtra";
 import { CalculatorTools } from "./CalculatorTools";
+import { CalculatorToolsExtra } from "./CalculatorToolsExtra";
 import { DeveloperTools } from "./DeveloperTools";
+import { DeveloperToolsExtra } from "./DeveloperToolsExtra";
 import { SeoTools } from "./SeoTools";
 import { ImageTools } from "./ImageTools";
 import { UrlTools } from "./UrlTools";
@@ -20,6 +26,8 @@ import { NetworkTools } from "./NetworkTools";
 import { SocialTools } from "./SocialTools";
 import { BusinessTools } from "./BusinessTools";
 import { A11yTools } from "./A11yTools";
+import { DevOpsTools } from "./DevOpsTools";
+import { I18nTools } from "./I18nTools";
 
 const toolMap: Record<string, React.ComponentType<{}>> = {};
 
@@ -45,6 +53,14 @@ register({
   "whitespace-remover": TextTools.WhitespaceRemover,
   "find-replace": TextTools.FindReplace,
   "text-repeat": TextTools.TextRepeat,
+  "text-truncate": TextToolsExtra.TextTruncate,
+  "text-to-slug": TextToolsExtra.TextToSlug,
+  "text-to-binary": TextToolsExtra.TextToBinary,
+  "text-extract-emails": TextToolsExtra.TextExtractEmails,
+  "text-extract-urls": TextToolsExtra.TextExtractUrls,
+  "text-extract-numbers": TextToolsExtra.TextExtractNumbers,
+  "text-to-list": TextToolsExtra.TextToList,
+  "text-prefix-suffix": TextToolsExtra.TextPrefixSuffix,
 });
 
 // Encode tools
@@ -55,6 +71,10 @@ register({
   "jwt-decoder": EncodeTools.JwtDecoder,
   "unicode-converter": EncodeTools.UnicodeConverter,
   "morse-code": EncodeTools.MorseCode,
+  "hex-encode": EncodeToolsExtra.HexEncode,
+  "rot13": EncodeToolsExtra.Rot13,
+  "base32-encode": EncodeToolsExtra.Base32Encode,
+  "ascii-art": EncodeToolsExtra.AsciiArt,
 });
 
 // Format tools
@@ -77,6 +97,10 @@ register({
   "hash-generator": GeneratorTools.HashGenerator,
   "fake-data": GeneratorTools.FakeData,
   "credit-card-validator": GeneratorTools.CreditCardValidator,
+  "qr-code-gen": GeneratorToolsExtra.QrCodeGen,
+  "api-key-gen": GeneratorToolsExtra.ApiKeyGen,
+  "cron-gen": GeneratorToolsExtra.CronGen,
+  "gitignore-gen": GeneratorToolsExtra.GitignoreGen,
 });
 
 // Converter tools
@@ -89,6 +113,13 @@ register({
   "data-size-converter": ConverterTools.DataSizeConverter,
   "number-base": ConverterTools.NumberBase,
   "color-converter": ConverterTools.ColorConverter,
+  "area-converter": ConverterToolsExtra.AreaConverter,
+  "volume-converter": ConverterToolsExtra.VolumeConverter,
+  "pressure-converter": ConverterToolsExtra.PressureConverter,
+  "energy-converter": ConverterToolsExtra.EnergyConverter,
+  "angle-converter": ConverterToolsExtra.AngleConverter,
+  "roman-numeral": ConverterToolsExtra.RomanNumeral,
+  "cooking-converter": ConverterToolsExtra.CookingConverter,
 });
 
 // Calculator tools
@@ -99,6 +130,11 @@ register({
   "discount-calc": CalculatorTools.DiscountCalc,
   "tip-calc": CalculatorTools.TipCalc,
   "loan-calc": CalculatorTools.LoanCalc,
+  "compound-interest": CalculatorToolsExtra.CompoundInterest,
+  "tax-calc": CalculatorToolsExtra.TaxCalc,
+  "margin-calc": CalculatorToolsExtra.MarginCalc,
+  "calorie-calc": CalculatorToolsExtra.CalorieCalc,
+  "electricity-calc": CalculatorToolsExtra.ElectricityCalc,
 });
 
 // Developer tools
@@ -111,6 +147,10 @@ register({
   "timestamp-converter": DeveloperTools.TimestampConverter,
   "json-path": DeveloperTools.JsonPath,
   "pixel-converter": DeveloperTools.PixelConverter,
+  "json-to-ts": DeveloperToolsExtra.JsonToTs,
+  "html-to-jsx": DeveloperToolsExtra.HtmlToJsx,
+  "json-to-yaml": DeveloperToolsExtra.JsonToYaml,
+  "json-schema-gen": DeveloperToolsExtra.JsonSchemaGen,
 });
 
 // SEO tools
@@ -261,4 +301,27 @@ register({
   "contrast-checker": A11yTools.ContrastChecker,
   "color-blind-sim": A11yTools.ColorBlindSim,
   "font-size-calc": A11yTools.FontSizeCalc,
+});
+
+// DevOps tools
+register({
+  "docker-compose": DevOpsTools.DockerCompose,
+  "env-gen": DevOpsTools.EnvGen,
+  "nginx-config": DevOpsTools.NginxConfig,
+  "yaml-validator": DevOpsTools.YamlValidator,
+  "json-validator": DevOpsTools.JsonValidator,
+  "changelog-gen": DevOpsTools.ChangelogGen,
+  "readme-gen": DevOpsTools.ReadmeGen,
+  "license-gen": DevOpsTools.LicenseGen,
+  "semver-calc": DevOpsTools.SemverCalc,
+});
+
+// I18n tools
+register({
+  "chinese-converter": I18nTools.ChineseConverter,
+  "country-code": I18nTools.CountryCode,
+  "timezone-list": I18nTools.TimezoneList,
+  "locale-format": I18nTools.LocaleFormat,
+  "charset-detect": I18nTools.CharsetDetect,
+  "i18n-key-gen": I18nTools.I18nKeyGen,
 });

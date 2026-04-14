@@ -135,6 +135,12 @@ register({
   "image-filter": ImageTools.ImageFilter,
   "image-grayscale": ImageTools.ImageGrayscale,
   "image-brightness": ImageTools.ImageBrightness,
+  "image-watermark": ImageTools.ImageWatermark,
+  "image-palette": ImageTools.ImagePalette,
+  "svg-to-png": ImageTools.SvgToPng,
+  "image-blur": ImageTools.ImageBlur,
+  "favicon-gen": ImageTools.FaviconGen,
+  "image-placeholder": ImageTools.ImagePlaceholder,
 });
 
 // URL tools

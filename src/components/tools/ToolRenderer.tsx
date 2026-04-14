@@ -135,6 +135,12 @@ register({
   "image-filter": ImageTools.ImageFilter,
   "image-grayscale": ImageTools.ImageGrayscale,
   "image-brightness": ImageTools.ImageBrightness,
+  "image-watermark": ImageTools.ImageWatermark,
+  "image-palette": ImageTools.ImagePalette,
+  "svg-to-png": ImageTools.SvgToPng,
+  "image-blur": ImageTools.ImageBlur,
+  "favicon-gen": ImageTools.FaviconGen,
+  "image-placeholder": ImageTools.ImagePlaceholder,
 });
 
 // URL tools
@@ -145,6 +151,9 @@ register({
   "utm-builder": UrlTools.UtmBuilder,
   "url-validator": UrlTools.UrlValidator,
   "url-compare": UrlTools.UrlCompare,
+  "text-share": UrlTools.TextShare,
+  "image-share": UrlTools.ImageShare,
+  "file-share": UrlTools.FileShare,
 });
 
 // Video/Audio tools

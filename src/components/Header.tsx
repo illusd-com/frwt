@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Wrench } from "lucide-react";
+import { Wrench, Moon, Sun } from "lucide-react";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
 export function Header() {
+  const { isDark, toggle } = useDarkMode();
+
   return (
     <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
@@ -18,6 +21,13 @@ export function Header() {
           <Link to="/categories" className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
             分類
           </Link>
+          <button
+            onClick={toggle}
+            className="ml-1 p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            aria-label={isDark ? "切換淺色模式" : "切換深色模式"}
+          >
+            {isDark ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
+          </button>
         </nav>
       </div>
     </header>

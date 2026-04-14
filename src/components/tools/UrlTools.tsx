@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { createShare } from "@/lib/share-service";
 
 function UrlParser() {
   const [url, setUrl] = useState("");
@@ -119,24 +120,122 @@ function UrlValidator() {
   );
 }
 
-function UrlShortenerPlaceholder() {
+function UrlShortener() {
   const [url, setUrl] = useState("");
-  const [short, setShort] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
 
   const shorten = () => {
     if (!url) return;
-    const hash = btoa(url).slice(0, 8);
-    setShort(`https://fwt.link/${hash}`);
+    const id = createShare("url", url);
+    setShortUrl(`${window.location.origin}/s/${id}`);
   };
 
   return (
     <div className="space-y-4">
       <input type="text" value={url} onChange={e => setUrl(e.target.value)} placeholder="輸入要縮短的網址..." className="w-full rounded-lg border bg-card p-3 text-sm" />
       <button onClick={shorten} disabled={!url} className="tool-btn">縮短網址</button>
-      {short && (
+      {shortUrl && (
         <div className="space-y-2">
-          <div className="tool-result">{short}</div>
-          <p className="text-xs text-muted-foreground">※ 此為前端示範，實際縮網址需要後端服務支援</p>
+          <div className="tool-result break-all">{shortUrl}</div>
+          <button onClick={() => navigator.clipboard.writeText(shortUrl)} className="tool-btn-secondary text-xs">複製短網址</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TextShare() {
+  const [text, setText] = useState("");
+  const [shareUrl, setShareUrl] = useState("");
+
+  const share = () => {
+    if (!text) return;
+    const id = createShare("text", text);
+    setShareUrl(`${window.location.origin}/s/${id}`);
+  };
+
+  return (
+    <div className="space-y-4">
+      <textarea value={text} onChange={e => setText(e.target.value)} placeholder="輸入要分享的文字..." className="tool-textarea min-h-[150px]" />
+      <button onClick={share} disabled={!text} className="tool-btn">產生分享連結</button>
+      {shareUrl && (
+        <div className="space-y-2">
+          <div className="tool-result break-all">{shareUrl}</div>
+          <button onClick={() => navigator.clipboard.writeText(shareUrl)} className="tool-btn-secondary text-xs">複製連結</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ImageShare() {
+  const [image, setImage] = useState<string | null>(null);
+  const [fileName, setFileName] = useState("");
+  const [shareUrl, setShareUrl] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = (file: File) => {
+    if (file.size > 2 * 1024 * 1024) { alert("檔案大小不能超過 2MB"); return; }
+    setFileName(file.name);
+    const reader = new FileReader();
+    reader.onload = e => setImage(e.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const share = () => {
+    if (!image) return;
+    const id = createShare("image", image, fileName);
+    setShareUrl(`${window.location.origin}/s/${id}`);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary/50 transition-colors" onClick={() => inputRef.current?.click()}>
+        <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
+        {image ? <img src={image} alt="Preview" className="max-h-48 mx-auto rounded" /> : <p className="text-muted-foreground text-sm">拖放圖片或點擊上傳（最大 2MB）</p>}
+      </div>
+      <button onClick={share} disabled={!image} className="tool-btn">產生圖片分享連結</button>
+      {shareUrl && (
+        <div className="space-y-2">
+          <div className="tool-result break-all">{shareUrl}</div>
+          <button onClick={() => navigator.clipboard.writeText(shareUrl)} className="tool-btn-secondary text-xs">複製連結</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FileShare() {
+  const [fileData, setFileData] = useState<string | null>(null);
+  const [fileName, setFileName] = useState("");
+  const [shareUrl, setShareUrl] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = (file: File) => {
+    if (file.size > 2 * 1024 * 1024) { alert("檔案大小不能超過 2MB"); return; }
+    setFileName(file.name);
+    const reader = new FileReader();
+    reader.onload = e => setFileData(e.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const share = () => {
+    if (!fileData) return;
+    const id = createShare("file", fileData, fileName);
+    setShareUrl(`${window.location.origin}/s/${id}`);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary/50 transition-colors" onClick={() => inputRef.current?.click()}>
+        <input ref={inputRef} type="file" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
+        {fileName ? <p className="text-sm">📁 {fileName}</p> : <p className="text-muted-foreground text-sm">點擊上傳檔案（最大 2MB）</p>}
+      </div>
+      <button onClick={share} disabled={!fileData} className="tool-btn">產生檔案分享連結</button>
+      {shareUrl && (
+        <div className="space-y-2">
+          <div className="tool-result break-all">{shareUrl}</div>
+          <button onClick={() => navigator.clipboard.writeText(shareUrl)} className="tool-btn-secondary text-xs">複製連結</button>
         </div>
       )}
     </div>
@@ -173,10 +272,13 @@ function UrlCompare() {
 }
 
 export const UrlTools = {
-  UrlShortener: UrlShortenerPlaceholder,
+  UrlShortener,
   UrlParser,
   UrlBuilder,
   UtmBuilder,
   UrlValidator,
   UrlCompare,
+  TextShare,
+  ImageShare,
+  FileShare,
 };

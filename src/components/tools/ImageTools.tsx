@@ -428,6 +428,319 @@ function ImageBrightness() {
   );
 }
 
+// Image Watermark
+function ImageWatermark() {
+  const [image, setImage] = useState<string | null>(null);
+  const [text, setText] = useState("FreeWebTools");
+  const [fontSize, setFontSize] = useState(32);
+  const [opacity, setOpacity] = useState(0.5);
+  const [position, setPosition] = useState("bottom-right");
+  const [result, setResult] = useState<string | null>(null);
+
+  const handleFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = e => setImage(e.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const apply = () => {
+    if (!image) return;
+    const img = new window.Image();
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = img.width; c.height = img.height;
+      const ctx = c.getContext("2d")!;
+      ctx.drawImage(img, 0, 0);
+      ctx.font = `${fontSize}px sans-serif`;
+      ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+      ctx.strokeStyle = `rgba(0,0,0,${opacity * 0.5})`;
+      ctx.lineWidth = 1;
+      const m = ctx.measureText(text);
+      let x = 20, y = img.height - 20;
+      if (position === "top-left") { x = 20; y = fontSize + 20; }
+      else if (position === "top-right") { x = img.width - m.width - 20; y = fontSize + 20; }
+      else if (position === "center") { x = (img.width - m.width) / 2; y = img.height / 2; }
+      else if (position === "bottom-left") { x = 20; y = img.height - 20; }
+      else { x = img.width - m.width - 20; y = img.height - 20; }
+      ctx.strokeText(text, x, y);
+      ctx.fillText(text, x, y);
+      setResult(c.toDataURL("image/png"));
+    };
+    img.src = image;
+  };
+
+  return (
+    <div className="space-y-4">
+      <ImageUploadArea onFile={handleFile} image={image} />
+      <div>
+        <label className="tool-label">浮水印文字</label>
+        <input type="text" value={text} onChange={e => setText(e.target.value)} className="w-full rounded-lg border bg-card p-2 text-sm" />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="tool-label">字體大小: {fontSize}px</label>
+          <input type="range" min="12" max="120" value={fontSize} onChange={e => setFontSize(+e.target.value)} className="w-full" />
+        </div>
+        <div>
+          <label className="tool-label">透明度: {Math.round(opacity * 100)}%</label>
+          <input type="range" min="0.1" max="1" step="0.05" value={opacity} onChange={e => setOpacity(+e.target.value)} className="w-full" />
+        </div>
+      </div>
+      <div>
+        <label className="tool-label">位置</label>
+        <select value={position} onChange={e => setPosition(e.target.value)} className="w-full rounded-lg border bg-card p-2 text-sm">
+          <option value="top-left">左上</option>
+          <option value="top-right">右上</option>
+          <option value="center">置中</option>
+          <option value="bottom-left">左下</option>
+          <option value="bottom-right">右下</option>
+        </select>
+      </div>
+      <button onClick={apply} disabled={!image} className="tool-btn">添加浮水印</button>
+      {result && (
+        <div className="space-y-2">
+          <img src={result} alt="Watermarked" className="max-h-48 rounded" />
+          <a href={result} download="watermarked.png" className="tool-btn-secondary inline-block">下載</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Image Color Palette / Color Picker
+function ImagePalette() {
+  const [image, setImage] = useState<string | null>(null);
+  const [colors, setColors] = useState<string[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const handleFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const src = e.target?.result as string;
+      setImage(src);
+      extractColors(src);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const extractColors = (src: string) => {
+    const img = new window.Image();
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = img.width; c.height = img.height;
+      const ctx = c.getContext("2d")!;
+      ctx.drawImage(img, 0, 0);
+      const data = ctx.getImageData(0, 0, c.width, c.height).data;
+      const colorMap: Record<string, number> = {};
+      for (let i = 0; i < data.length; i += 16) {
+        const r = Math.round(data[i] / 32) * 32;
+        const g = Math.round(data[i + 1] / 32) * 32;
+        const b = Math.round(data[i + 2] / 32) * 32;
+        const key = `rgb(${r},${g},${b})`;
+        colorMap[key] = (colorMap[key] || 0) + 1;
+      }
+      const sorted = Object.entries(colorMap).sort((a, b) => b[1] - a[1]);
+      setColors(sorted.slice(0, 8).map(([c]) => c));
+    };
+    img.src = src;
+  };
+
+  const rgbToHex = (rgb: string) => {
+    const m = rgb.match(/\d+/g);
+    if (!m) return rgb;
+    return "#" + m.map(n => parseInt(n).toString(16).padStart(2, "0")).join("");
+  };
+
+  const copyColor = (c: string) => {
+    navigator.clipboard.writeText(rgbToHex(c));
+  };
+
+  return (
+    <div className="space-y-4">
+      <ImageUploadArea onFile={handleFile} image={image} />
+      <canvas ref={canvasRef} className="hidden" />
+      {colors.length > 0 && (
+        <div>
+          <label className="tool-label">提取的主要顏色（點擊複製 HEX）</label>
+          <div className="grid grid-cols-4 gap-2">
+            {colors.map((c, i) => (
+              <button key={i} onClick={() => copyColor(c)} className="rounded-lg p-1 border hover:border-primary transition-colors text-center">
+                <div className="w-full h-12 rounded" style={{ backgroundColor: c }} />
+                <span className="text-xs mt-1 block">{rgbToHex(c)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// SVG to PNG
+function SvgToPng() {
+  const [svg, setSvg] = useState("");
+  const [width, setWidth] = useState(512);
+  const [height, setHeight] = useState(512);
+  const [result, setResult] = useState<string | null>(null);
+
+  const convert = () => {
+    if (!svg.trim()) return;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const img = new window.Image();
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = width; c.height = height;
+      c.getContext("2d")!.drawImage(img, 0, 0, width, height);
+      setResult(c.toDataURL("image/png"));
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <label className="tool-label">SVG 程式碼</label>
+        <textarea value={svg} onChange={e => setSvg(e.target.value)} placeholder='<svg xmlns="http://www.w3.org/2000/svg" ...>...</svg>' className="tool-textarea min-h-[150px]" />
+      </div>
+      <div className="flex gap-4">
+        <div className="flex-1">
+          <label className="tool-label">寬度 (px)</label>
+          <input type="number" value={width} onChange={e => setWidth(+e.target.value)} className="w-full rounded-lg border bg-card p-2 text-sm" />
+        </div>
+        <div className="flex-1">
+          <label className="tool-label">高度 (px)</label>
+          <input type="number" value={height} onChange={e => setHeight(+e.target.value)} className="w-full rounded-lg border bg-card p-2 text-sm" />
+        </div>
+      </div>
+      <button onClick={convert} disabled={!svg.trim()} className="tool-btn">轉換為 PNG</button>
+      {result && (
+        <div className="space-y-2">
+          <img src={result} alt="Converted PNG" className="max-h-48 rounded border" />
+          <a href={result} download="converted.png" className="tool-btn-secondary inline-block">下載 PNG</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Image Blur
+function ImageBlur() {
+  const [image, setImage] = useState<string | null>(null);
+  const [blur, setBlur] = useState(5);
+
+  const handleFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = e => setImage(e.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <div className="space-y-4">
+      <ImageUploadArea onFile={handleFile} image={null} />
+      {image && (
+        <>
+          <img src={image} alt="Blurred" className="max-h-48 mx-auto rounded" style={{ filter: `blur(${blur}px)` }} />
+          <div>
+            <label className="tool-label">模糊程度: {blur}px</label>
+            <input type="range" min="0" max="30" value={blur} onChange={e => setBlur(+e.target.value)} className="w-full" />
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// Favicon Generator
+function FaviconGen() {
+  const [image, setImage] = useState<string | null>(null);
+  const [results, setResults] = useState<{ size: number; data: string }[]>([]);
+
+  const handleFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = e => setImage(e.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const generate = () => {
+    if (!image) return;
+    const sizes = [16, 32, 48, 64, 128, 180, 192, 512];
+    const img = new window.Image();
+    img.onload = () => {
+      const out: typeof results = [];
+      for (const s of sizes) {
+        const c = document.createElement("canvas");
+        c.width = s; c.height = s;
+        c.getContext("2d")!.drawImage(img, 0, 0, s, s);
+        out.push({ size: s, data: c.toDataURL("image/png") });
+      }
+      setResults(out);
+    };
+    img.src = image;
+  };
+
+  return (
+    <div className="space-y-4">
+      <ImageUploadArea onFile={handleFile} image={image} />
+      <button onClick={generate} disabled={!image} className="tool-btn">產生 Favicon</button>
+      {results.length > 0 && (
+        <div className="grid grid-cols-4 gap-3">
+          {results.map(r => (
+            <div key={r.size} className="text-center border rounded-lg p-2">
+              <img src={r.data} alt={`${r.size}x${r.size}`} className="mx-auto mb-1" style={{ width: Math.min(r.size, 64), height: Math.min(r.size, 64) }} />
+              <p className="text-xs text-muted-foreground">{r.size}×{r.size}</p>
+              <a href={r.data} download={`favicon-${r.size}.png`} className="text-xs text-primary hover:underline">下載</a>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Image Placeholder Generator
+function ImagePlaceholder() {
+  const [w, setW] = useState(800);
+  const [h, setH] = useState(600);
+  const [bgColor, setBgColor] = useState("#cccccc");
+  const [textColor, setTextColor] = useState("#666666");
+  const [result, setResult] = useState<string | null>(null);
+
+  const generate = () => {
+    const c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    const ctx = c.getContext("2d")!;
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = textColor;
+    const size = Math.max(16, Math.min(w, h) / 10);
+    ctx.font = `${size}px sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(`${w} × ${h}`, w / 2, h / 2);
+    setResult(c.toDataURL("image/png"));
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-3">
+        <div><label className="tool-label">寬度</label><input type="number" value={w} onChange={e => setW(+e.target.value)} className="w-full rounded-lg border bg-card p-2 text-sm" /></div>
+        <div><label className="tool-label">高度</label><input type="number" value={h} onChange={e => setH(+e.target.value)} className="w-full rounded-lg border bg-card p-2 text-sm" /></div>
+        <div><label className="tool-label">背景色</label><input type="color" value={bgColor} onChange={e => setBgColor(e.target.value)} className="w-full h-10 rounded-lg" /></div>
+        <div><label className="tool-label">文字色</label><input type="color" value={textColor} onChange={e => setTextColor(e.target.value)} className="w-full h-10 rounded-lg" /></div>
+      </div>
+      <button onClick={generate} className="tool-btn">產生佔位圖</button>
+      {result && (
+        <div className="space-y-2">
+          <img src={result} alt="Placeholder" className="max-h-48 rounded border" />
+          <a href={result} download={`placeholder-${w}x${h}.png`} className="tool-btn-secondary inline-block">下載</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export const ImageTools = {
   ImageCompress,
   ImageResize,
@@ -439,4 +752,10 @@ export const ImageTools = {
   ImageFilter,
   ImageGrayscale,
   ImageBrightness,
+  ImageWatermark,
+  ImagePalette,
+  SvgToPng,
+  ImageBlur,
+  FaviconGen,
+  ImagePlaceholder,
 };

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Wrench, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 
 export function Header() {

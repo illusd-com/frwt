@@ -68,6 +68,7 @@ export const categories: Category[] = [
   { id: "devops", name: "DevOps 工具", icon: Cpu, color: "oklch(0.5 0.1 240)" },
   { id: "i18n", name: "國際化工具", icon: Languages, color: "oklch(0.6 0.14 160)" },
   { id: "a11y", name: "無障礙工具", icon: Accessibility, color: "oklch(0.55 0.12 120)" },
+  { id: "code", name: "程式碼工具", icon: Terminal, color: "oklch(0.5 0.16 200)" },
 ];
 
 export const tools: Tool[] = [
@@ -423,6 +424,13 @@ export const tools: Tool[] = [
   { id: "heading-checker", name: "標題結構檢查", description: "檢查 HTML 標題層級", category: "a11y", icon: Heading },
   { id: "focus-order", name: "焦點順序測試", description: "測試鍵盤焦點順序", category: "a11y", icon: Target },
   { id: "screen-reader-text", name: "螢幕閱讀器文字", description: "產生螢幕閱讀器專用文字", category: "a11y", icon: Volume2 },
+
+  // ─── 程式碼工具 (Code) ───
+  { id: "html-preview", name: "HTML 即時預覽", description: "撰寫 HTML/CSS/JS 並即時預覽", category: "code", icon: Code },
+  { id: "js-runner", name: "JavaScript 執行器", description: "線上執行 JavaScript 代碼", category: "code", icon: Terminal },
+  { id: "css-playground", name: "CSS 遊樂場", description: "即時測試 CSS 樣式效果", category: "code", icon: Paintbrush },
+  { id: "json-formatter-pro", name: "JSON 格式化工具", description: "格式化和驗證 JSON", category: "code", icon: Braces },
+  { id: "regex-playground", name: "正則表達式測試", description: "測試和除錯正則表達式", category: "code", icon: Regex },
 ];
 
 export function getToolsByCategory(categoryId: string): Tool[] {

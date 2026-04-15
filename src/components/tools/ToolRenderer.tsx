@@ -1,5 +1,7 @@
 import { TextTools } from "./TextTools";
 import { TextToolsExtra } from "./TextToolsExtra";
+import { MathToolsExtra } from "./MathToolsExtra";
+import { BusinessToolsExtra } from "./BusinessToolsExtra";
 import { EncodeTools } from "./EncodeTools";
 import { EncodeToolsExtra } from "./EncodeToolsExtra";
 import { FormatTools } from "./FormatTools";

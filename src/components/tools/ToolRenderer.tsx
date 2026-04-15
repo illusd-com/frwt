@@ -28,6 +28,9 @@ import { BusinessTools } from "./BusinessTools";
 import { A11yTools } from "./A11yTools";
 import { DevOpsTools } from "./DevOpsTools";
 import { I18nTools } from "./I18nTools";
+import { DocumentTools } from "./DocumentTools";
+import { CodeTools } from "./CodeTools";
+import { DesignToolsExtra } from "./DesignToolsExtra";
 
 const toolMap: Record<string, React.ComponentType<{}>> = {};
 
@@ -324,4 +327,32 @@ register({
   "locale-format": I18nTools.LocaleFormat,
   "charset-detect": I18nTools.CharsetDetect,
   "i18n-key-gen": I18nTools.I18nKeyGen,
+});
+
+// Document tools
+register({
+  "markdown-to-html": DocumentTools.MarkdownToHtml,
+  "text-to-pdf": DocumentTools.TextToPdf,
+  "resume-gen": DocumentTools.ResumeGen,
+  "invoice-gen": DocumentTools.InvoiceGen,
+  "letter-gen": DocumentTools.LetterGen,
+  "table-to-csv": DocumentTools.TableToCsv,
+  "doc-word-count": DocumentTools.DocWordCount,
+});
+
+// Code tools
+register({
+  "html-preview": CodeTools.HtmlPreview,
+  "js-runner": CodeTools.JsRunner,
+  "css-playground": CodeTools.CssPlayground,
+  "json-formatter-pro": CodeTools.JsonFormatter,
+  "regex-playground": CodeTools.RegexPlayground,
+});
+
+// Design extra tools
+register({
+  "css-animation-gen": DesignToolsExtra.CssAnimationGen,
+  "grid-gen": DesignToolsExtra.GridGen,
+  "clip-path-gen": DesignToolsExtra.ClipPathGen,
+  "transform-gen": DesignToolsExtra.TransformGen,
 });

@@ -1,5 +1,7 @@
 import { TextTools } from "./TextTools";
 import { TextToolsExtra } from "./TextToolsExtra";
+import { MathToolsExtra } from "./MathToolsExtra";
+import { BusinessToolsExtra } from "./BusinessToolsExtra";
 import { EncodeTools } from "./EncodeTools";
 import { EncodeToolsExtra } from "./EncodeToolsExtra";
 import { FormatTools } from "./FormatTools";
@@ -265,6 +267,12 @@ register({
   "statistics-calc": MathTools.StatisticsCalc,
   "fibonacci-gen": MathTools.FibonacciGen,
   "permutation-calc": MathTools.PermutationCalc,
+  "equation-solver": MathToolsExtra.EquationSolver,
+  "matrix-calc": MathToolsExtra.MatrixCalc,
+  "factorial-calc": MathToolsExtra.FactorialCalc,
+  "quadratic-solver": MathToolsExtra.QuadraticSolver,
+  "unit-circle": MathToolsExtra.UnitCircle,
+  "binary-calc": MathToolsExtra.BinaryCalc,
 });
 
 // Writing tools
@@ -297,6 +305,12 @@ register({
   "salary-calc": BusinessTools.SalaryCalc,
   "meeting-cost": BusinessTools.MeetingCost,
   "break-even-calc": BusinessTools.BreakEvenCalc,
+  "invoice-calculator": BusinessToolsExtra.InvoiceCalculator,
+  "business-name-gen": BusinessToolsExtra.BusinessNameGen,
+  "email-template": BusinessToolsExtra.EmailTemplate,
+  "nda-gen": BusinessToolsExtra.NdaGen,
+  "project-timeline": BusinessToolsExtra.ProjectTimeline,
+  "pricing-table-gen": BusinessToolsExtra.PricingTableGen,
 });
 
 // Accessibility tools

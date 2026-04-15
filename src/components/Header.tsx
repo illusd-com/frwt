@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Wrench, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 
 export function Header() {
@@ -9,9 +9,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold text-lg text-foreground">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Wrench className="w-4.5 h-4.5 text-primary-foreground" />
-          </div>
+          <img src="/logo.png" alt="FreeWebTools" className="h-8 w-auto" />
           FreeWebTools
         </Link>
         <nav className="flex items-center gap-1 text-sm">

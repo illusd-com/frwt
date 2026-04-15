@@ -1,0 +1,16 @@
+{
+  "name": "FreeWebTools — 免費線上工具集",
+  "short_name": "FreeWebTools",
+  "description": "250+ 免費線上工具，文字處理、編碼解碼、格式化、產生器、轉換器、計算器等。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/placeholder.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -33,6 +33,9 @@ import { I18nTools } from "./I18nTools";
 import { DocumentTools } from "./DocumentTools";
 import { CodeTools } from "./CodeTools";
 import { DesignToolsExtra } from "./DesignToolsExtra";
+import { ImageToolsExtra } from "./ImageToolsExtra";
+import { FunToolsExtra } from "./FunToolsExtra";
+import { WritingToolsExtra } from "./WritingToolsExtra";
 
 const toolMap: Record<string, React.ComponentType<{}>> = {};
 

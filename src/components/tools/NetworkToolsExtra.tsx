@@ -359,8 +359,8 @@ function CidrCalc() {
       萬用遮罩: numToIp(~mask >>> 0),
       第一個主機: numToIp(network + 1),
       最後一個主機: numToIp(broadcast - 1),
-      總 IP 數: total.toLocaleString(),
-      可用主機數: Math.max(0, total - 2).toLocaleString(),
+      "總 IP 數": total.toLocaleString(),
+      "可用主機數": Math.max(0, total - 2).toLocaleString(),
       "二進位遮罩": mask.toString(2).padStart(32, "0").match(/.{8}/g)!.join("."),
     };
   };

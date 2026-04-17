@@ -25,6 +25,7 @@ import { TimeTools } from "./TimeTools";
 import { MathTools } from "./MathTools";
 import { WritingTools } from "./WritingTools";
 import { NetworkTools } from "./NetworkTools";
+import { NetworkToolsExtra } from "./NetworkToolsExtra";
 import { SocialTools } from "./SocialTools";
 import { BusinessTools } from "./BusinessTools";
 import { A11yTools } from "./A11yTools";
@@ -292,6 +293,14 @@ register({
   "subnet-calc": NetworkTools.SubnetCalc,
   "user-agent": NetworkTools.UserAgentParser,
   "http-status": NetworkTools.HttpStatusCodes,
+  "ip-lookup": NetworkToolsExtra.IpLookup,
+  "dns-lookup": NetworkToolsExtra.DnsLookup,
+  "http-headers": NetworkToolsExtra.HttpHeaders,
+  "ping-tool": NetworkToolsExtra.PingTool,
+  "whois-lookup": NetworkToolsExtra.WhoisLookup,
+  "mac-lookup": NetworkToolsExtra.MacLookup,
+  "port-scanner": NetworkToolsExtra.PortScanner,
+  "cidr-calc": NetworkToolsExtra.CidrCalc,
 });
 
 // Social tools

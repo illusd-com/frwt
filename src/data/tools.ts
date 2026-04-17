@@ -223,6 +223,7 @@ export const tools: Tool[] = [
   { id: "sprite-sheet", name: "精靈圖合併", description: "將多張圖片合併為精靈圖", category: "image", icon: Layers },
   { id: "image-exif", name: "EXIF 資訊", description: "檢視和移除圖片 EXIF 資料", category: "image", icon: FileText },
   { id: "pixel-art", name: "像素畫產生器", description: "產生像素風格的圖片", category: "image", icon: Hexagon },
+  { id: "image-search", name: "以圖搜尋", description: "上傳圖片並透過 Google Lens 智慧搜尋", category: "image", icon: Search },
 
   // ─── 網址工具 (URL) ───
   { id: "url-shortener", name: "縮短網址", description: "將長網址轉為短網址，產生 /s/ 分享連結", category: "url", icon: LinkIcon },

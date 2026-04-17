@@ -373,3 +373,26 @@ register({
   "clip-path-gen": DesignToolsExtra.ClipPathGen,
   "transform-gen": DesignToolsExtra.TransformGen,
 });
+
+// Image extra tools
+register({
+  "image-search": ImageToolsExtra.ImageSearch,
+});
+
+// Fun extra tools
+register({
+  "name-picker": FunToolsExtra.NamePicker,
+  "meme-text": FunToolsExtra.MemeText,
+  "ascii-face": FunToolsExtra.AsciiFace,
+  "nickname-gen": FunToolsExtra.NicknameGen,
+  "fortune-cookie": FunToolsExtra.FortuneCookie,
+});
+
+// Writing extra tools
+register({
+  "grammar-check": WritingToolsExtra.GrammarCheck,
+  "outline-gen": WritingToolsExtra.OutlineGen,
+  "plagiarism-check": WritingToolsExtra.PlagiarismCheck,
+  "summary-gen": WritingToolsExtra.SummaryGen,
+  "paraphrase": WritingToolsExtra.Paraphrase,
+});

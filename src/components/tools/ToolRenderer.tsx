@@ -37,6 +37,9 @@ import { DesignToolsExtra } from "./DesignToolsExtra";
 import { ImageToolsExtra } from "./ImageToolsExtra";
 import { FunToolsExtra } from "./FunToolsExtra";
 import { WritingToolsExtra } from "./WritingToolsExtra";
+import { ImageToolsAdvanced } from "./ImageToolsAdvanced";
+import { DevOpsToolsExtra } from "./DevOpsToolsExtra";
+import { AiImageTools } from "./AiImageTools";
 
 const toolMap: Record<string, React.ComponentType<{}>> = {};
 
@@ -386,6 +389,18 @@ register({
 // Image extra tools
 register({
   "image-search": ImageToolsExtra.ImageSearch,
+  "ai-image-analyze": AiImageTools.AiImageAnalyze,
+  "image-exif": ImageToolsAdvanced.ImageExif,
+  "pixel-art": ImageToolsAdvanced.PixelArt,
+  "sprite-sheet": ImageToolsAdvanced.SpriteSheet,
+  "image-bg-remove": ImageToolsAdvanced.ImageBgRemove,
+});
+
+// DevOps extra tools
+register({
+  "kubernetes-gen": DevOpsToolsExtra.KubernetesGen,
+  "cicd-gen": DevOpsToolsExtra.CicdGen,
+  "crontab-parser": DevOpsToolsExtra.CrontabParser,
 });
 
 // Fun extra tools

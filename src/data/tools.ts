@@ -224,6 +224,8 @@ export const tools: Tool[] = [
   { id: "image-exif", name: "EXIF 資訊", description: "檢視和移除圖片 EXIF 資料", category: "image", icon: FileText },
   { id: "pixel-art", name: "像素畫產生器", description: "產生像素風格的圖片", category: "image", icon: Hexagon },
   { id: "image-search", name: "以圖搜尋", description: "上傳圖片並透過 Google Lens 智慧搜尋", category: "image", icon: Search },
+  { id: "ai-image-analyze", name: "AI 圖片分析", description: "用 AI 辨識物件、文字 OCR 與場景描述", category: "image", icon: Bot },
+  { id: "image-bg-remove", name: "圖片去背", description: "去除單色或漸層背景，輸出透明 PNG", category: "image", icon: Scissors },
 
   // ─── 網址工具 (URL) ───
   { id: "url-shortener", name: "縮短網址", description: "將長網址轉為短網址，產生 /s/ 分享連結", category: "url", icon: LinkIcon },
@@ -405,6 +407,9 @@ export const tools: Tool[] = [
   { id: "license-gen", name: "License 產生器", description: "選擇和產生開源授權", category: "devops", icon: FileSignature },
   { id: "semver-calc", name: "語義化版本計算", description: "計算和比較版本號", category: "devops", icon: Tags },
   { id: "base-converter", name: "進位轉換器", description: "各進位數字互轉", category: "devops", icon: Binary },
+  { id: "kubernetes-gen", name: "Kubernetes YAML 產生", description: "產生 Deployment、Service、Ingress YAML", category: "devops", icon: Network },
+  { id: "cicd-gen", name: "CI/CD 配置產生", description: "GitHub Actions / GitLab CI / CircleCI 設定", category: "devops", icon: Webhook },
+  { id: "crontab-parser", name: "Crontab 解析器", description: "解讀 Cron 表達式並預測下次執行時間", category: "devops", icon: AlarmClock },
 
   // ─── 國際化工具 (i18n) ───
   { id: "charset-detect", name: "編碼偵測", description: "偵測文字的字元編碼", category: "i18n", icon: Globe2 },
